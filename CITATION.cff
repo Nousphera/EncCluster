@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "Please cite the EncCluster paper. This repository contains project references only."
+title: "EncCluster project references"
+type: software
+authors:
+  - family-names: Tsouvalas
+    given-names: Vasileios
+repository-code: "https://github.com/Nousphera/EncCluster"
+license: Apache-2.0
+preferred-citation:
+  type: article
+  title: "EncCluster: Scalable functional encryption in federated learning through weight clustering and probabilistic filters"
+  authors:
+    - family-names: Tsouvalas
+      given-names: Vasileios
+    - family-names: Mohammadi
+      given-names: Samaneh
+    - family-names: Balador
+      given-names: Ali
+    - family-names: Ozcelebi
+      given-names: Tanir
+    - family-names: Flammini
+      given-names: Francesco
+    - family-names: Meratnia
+      given-names: Nirvana
+  journal: "Pervasive and Mobile Computing"
+  volume: "108"
+  start: "102021"
+  year: 2025
+  doi: "10.1016/j.pmcj.2025.102021"

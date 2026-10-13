@@ -1,32 +1,33 @@
-# EncCluster: Scalable Functional Encryption in FL with Weight Clustering and Probabilistic Filters
+# EncCluster
 
-Federated Learning (FL) enables model training across decentralized devices by communicating solely local model updates to an aggregation server. Although such limited data sharing makes FL more secure than centralized approached, FL remains vulnerable to inference attacks during model update transmissions. Existing secure aggregation approaches rely on differential privacy or cryptographic schemes like Functional Encryption (FE) to safeguard individual client data. However, such strategies can reduce performance or introduce unacceptable computational and communication overheads on clients running on edge devices with limited resources. In this work, we present *EncCluster*, a novel method that integrates model compression through weight clustering with recent decentralized FE and privacy-enhancing data encoding using probabilistic filters to deliver strong privacy guarantees in FL without affecting model performance or adding unnecessary burdens to clients. We performed a comprehensive evaluation, spanning various datasets and architectures, to demonstrate *EncCluster*'s scalability across encryption levels. Our findings reveal that *EncCluster* significantly reduces communication costs — below even conventional FedAvg — and accelerates encryption by more than four times over all baselines; at the same time, it maintains high model accuracy and enhanced privacy assurances.
+**Scalable functional encryption for federated learning.**
 
-A complete description of our work can be found in our paper [arXiv](https://arxiv.org/abs/2406.09152).
+[Paper](https://doi.org/10.1016/j.pmcj.2025.102021) · [Preprint](https://arxiv.org/abs/2406.09152) · [Implementation](https://github.com/SamaneMohammadi/EncCluster) · [Provenance](PROVENANCE.md)
 
+EncCluster combines weight clustering, decentralized functional encryption, and probabilistic filters to reduce the communication and computation required for secure federated aggregation.
+
+## Repository status
+
+This is a project reference repository, copied from FederatedML with its history preserved. The inherited repository contains documentation and a license, but no implementation, environment specification, datasets, or checkpoints.
+
+The implementation is maintained separately in [SamaneMohammadi/EncCluster](https://github.com/SamaneMohammadi/EncCluster). Follow that repository's installation and experiment instructions. Its dependencies and licensing are separate from this repository.
+
+## Publication
+
+Vasileios Tsouvalas, Samaneh Mohammadi, Ali Balador, Tanir Ozcelebi, Francesco Flammini, and Nirvana Meratnia. **EncCluster: Scalable functional encryption in federated learning through weight clustering and probabilistic filters.** *Pervasive and Mobile Computing*, 108, 102021, 2025.
+
+```bibtex
+@article{tsouvalas2025enccluster,
+  title = {EncCluster: Scalable functional encryption in federated learning through weight clustering and probabilistic filters},
+  author = {Tsouvalas, Vasileios and Mohammadi, Samaneh and Balador, Ali and Ozcelebi, Tanir and Flammini, Francesco and Meratnia, Nirvana},
+  journal = {Pervasive and Mobile Computing},
+  volume = {108},
+  pages = {102021},
+  year = {2025},
+  doi = {10.1016/j.pmcj.2025.102021}
+}
 ```
-git clone https://github.com/FederatedML/EncCluster
-cd EncCluster/src
-```
 
-## Dependencies
-Create a new Python enviroment (virtualenvs, anacoda, etc.) and install all required packages via:
-```console
-foo@bar:~$ pip install -r requirements.txt
-```
+## License
 
-## Executing experiments
-From the `src` (root) directory of this repo, run:
-
-```console
-# FedLN-NNC
-foo@bar:~$ TODO
-```
-You can configure all federated parameters (i.e. number of federated rounds, number of clients, type of probablistic filter, dataset, model, etc.,) by passing them as command line arguments.
-
-# Reference
-If you use this repository, please consider citing:
-
-<pre>
-  TODO
-</pre>
+The inherited [Apache License 2.0](LICENSE) is preserved. The linked implementation and paper have their own licenses.
