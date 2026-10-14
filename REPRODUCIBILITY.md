@@ -108,3 +108,7 @@ included in the current simulator and is not comparable to the paper timings.
 ## Release artifact protection
 
 The maintained CLI rejects an existing output JSON or sibling checkpoint before training. Final `.pt` files contain CPU state dictionaries, configuration and class count, loadable with `torch.load(path, weights_only=True, map_location="cpu")`. The JSON includes Python, platform, torch and NumPy versions. Save the dependency constraints and input-data version alongside the run. Encryption key generation remains random; seeded training does not imply deterministic ciphertext bytes.
+
+## Dataset setup follow-up
+
+[DATASETS.md](DATASETS.md) defines the maintained preparation contract. Training now consumes `ROOT/DATASET` roots created by `scripts/prepare_data.py`; older direct CIFAR roots can be imported with `--source`. The preparation manifest identifies class maps, split sizes, label order and file hashes. Reports include its SHA256. Generated source-format fixtures exercise import, validation and actual training; their metrics are correctness diagnostics. No newly implemented ingestion path implies recovered historical splits or reproduced benchmark results.

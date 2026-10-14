@@ -54,3 +54,7 @@ This repository is an independent Nousphera copy of [EncCluster](https://github.
 Maintenance changes after this baseline improve documentation, setup, and validation. They do not constitute a new reproduction of the published experiments. For the original code and configuration, inspect the baseline tag.
 
 GitHub issues, pull requests, stars, releases, and Pages configuration are not part of Git history and have not been transferred. Existing discussions remain at the source repository.
+
+## Dataset/setup follow-up (2026-10-15)
+
+The maintained release adds `scripts/setup.sh`, `scripts/prepare_data.py`, namespaced dataset preparation/validation, manifests and generated-source integration tests. These modules are new integration code rather than recovered historical experiment scripts. Official dataset loading remains delegated to torchvision; fixed-split imports remain user-supplied. See `DATASETS.md` for split conventions and `REPRODUCIBILITY.md` for method/benchmark limits.
