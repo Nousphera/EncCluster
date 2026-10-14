@@ -31,3 +31,9 @@ Vasileios Tsouvalas, Samaneh Mohammadi, Ali Balador, Tanir Ozcelebi, Francesco F
 ## License
 
 The inherited [Apache License 2.0](LICENSE) is preserved. The linked implementation and paper have their own licenses.
+<!-- nousphera-project-resources -->
+## Project resources
+
+[Project page](https://nousphera.github.io/EncCluster/) · [Research overview](https://nousphera.github.io/projects/enccluster/) · [A0 poster](https://nousphera.github.io/EncCluster/poster.pdf) · [Paper](https://arxiv.org/abs/2406.09152)
+
+The maintained implementation is available at [SamaneMohammadi/EncCluster](https://github.com/SamaneMohammadi/EncCluster). This repository provides the project page, poster and citation. Follow the implementation repository for setup and experiments.
