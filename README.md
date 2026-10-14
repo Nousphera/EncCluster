@@ -31,7 +31,7 @@ are redistributed.
 
 The default is a small, two-round CPU experiment with generated data. It trains
 real client models and performs real P-256 FE operations. The output JSON records
-configuration, partition indices and measured metrics. No dataset is downloaded.
+configuration, partition indices, environment versions and measured metrics. A sibling `.pt` file stores the final model state dictionary and configuration; existing JSON/checkpoint paths are protected. No dataset is downloaded.
 
 For options and a CIFAR experiment with the compact model:
 
