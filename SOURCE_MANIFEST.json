@@ -1,0 +1,530 @@
+{
+  "format": 1,
+  "files": [
+    {
+      "path": "src/enccluster/UPSTREAM-LICENSE",
+      "source": "release-maintenance",
+      "released_sha256": "15828ecea972777aad4e50a9eb7c999f0fbf0d5ec6dfe604b14851fa79091cc0"
+    },
+    {
+      "path": "src/enccluster/__init__.py",
+      "source": "release-maintenance",
+      "released_sha256": "413d52dc252c58ea46d93491988ce96fbf818f8a8751715f6f9a3dd42d75a4b8"
+    },
+    {
+      "path": "src/enccluster/architectures/__init__.py",
+      "source": "SamaneMohammadi/EncCluster",
+      "source_commit": "9a1b4e00503813a69ecbe84bea564a087cf33ca3",
+      "source_path": "src/architectures/__init__.py",
+      "source_sha256": "7f8baf4187f8c4a87dfa780f4dd5d32367f2fd1920a432ee4c8e100de72c9eb5",
+      "released_sha256": "7f8baf4187f8c4a87dfa780f4dd5d32367f2fd1920a432ee4c8e100de72c9eb5",
+      "modified": false
+    },
+    {
+      "path": "src/enccluster/architectures/convnext.py",
+      "source": "SamaneMohammadi/EncCluster",
+      "source_commit": "9a1b4e00503813a69ecbe84bea564a087cf33ca3",
+      "source_path": "src/architectures/convnext.py",
+      "source_sha256": "1adfc1b05a5024fc998dd8d6bc8768edef78a714416c43b4aed107302af0fbb0",
+      "released_sha256": "1adfc1b05a5024fc998dd8d6bc8768edef78a714416c43b4aed107302af0fbb0",
+      "modified": false
+    },
+    {
+      "path": "src/enccluster/architectures/mlpmixer.py",
+      "source": "SamaneMohammadi/EncCluster",
+      "source_commit": "9a1b4e00503813a69ecbe84bea564a087cf33ca3",
+      "source_path": "src/architectures/mlpmixer.py",
+      "source_sha256": "2aa3a583d11562f26996475fc0f7d5291eea52dc56fc23327fcce274810dd92b",
+      "released_sha256": "2aa3a583d11562f26996475fc0f7d5291eea52dc56fc23327fcce274810dd92b",
+      "modified": false
+    },
+    {
+      "path": "src/enccluster/architectures/resnet20.py",
+      "source": "SamaneMohammadi/EncCluster",
+      "source_commit": "9a1b4e00503813a69ecbe84bea564a087cf33ca3",
+      "source_path": "src/architectures/resnet20.py",
+      "source_sha256": "252067038252439a70abca48aac326bcfa266292eceff50bb25931dd3de93786",
+      "released_sha256": "252067038252439a70abca48aac326bcfa266292eceff50bb25931dd3de93786",
+      "modified": false
+    },
+    {
+      "path": "src/enccluster/clustering.py",
+      "source": "SamaneMohammadi/EncCluster",
+      "source_commit": "9a1b4e00503813a69ecbe84bea564a087cf33ca3",
+      "source_path": "src/clustering.py",
+      "source_sha256": "2bebccac6791c65f99eea8f16fe5068cc51476cf862008dbb8458d81552b045d",
+      "released_sha256": "2906b332f61c07b06a1aa66a720d26d2dfce3daa8a55ecbb0915b59af4aeff88",
+      "modified": true
+    },
+    {
+      "path": "src/enccluster/config.py",
+      "source": "SamaneMohammadi/EncCluster",
+      "source_commit": "9a1b4e00503813a69ecbe84bea564a087cf33ca3",
+      "source_path": "src/config.py",
+      "source_sha256": "37e4c8eaa2f7a6894dbd209652baa8797ed4438b08c10ea186d7c21cd6eeaf86",
+      "released_sha256": "37e4c8eaa2f7a6894dbd209652baa8797ed4438b08c10ea186d7c21cd6eeaf86",
+      "modified": false
+    },
+    {
+      "path": "src/enccluster/coordinate_fe.py",
+      "source": "release-maintenance",
+      "released_sha256": "4fce31479785620a39fa8f4c4e045e57bc4eab9c71e47a070d1096b4290b738c"
+    },
+    {
+      "path": "src/enccluster/filters.py",
+      "source": "SamaneMohammadi/EncCluster",
+      "source_commit": "9a1b4e00503813a69ecbe84bea564a087cf33ca3",
+      "source_path": "src/filters.py",
+      "source_sha256": "86e95eb20f9d843cc18d4bc9939401549570ad96fc8bafe8e84d430cb0049652",
+      "released_sha256": "8b7003938b4ac3e5fc0cb1ef8a719f3debb5bf61d5cb0f64c35d7c3372c3a524",
+      "modified": true
+    },
+    {
+      "path": "src/enccluster/methods/__init__.py",
+      "source": "SamaneMohammadi/EncCluster",
+      "source_commit": "9a1b4e00503813a69ecbe84bea564a087cf33ca3",
+      "source_path": "src/methods/__init__.py",
+      "source_sha256": "9c6433ba2bfbefee21340681f8cc113c42e27c3f269f5b609a1eaa1e7b078737",
+      "released_sha256": "9c6433ba2bfbefee21340681f8cc113c42e27c3f269f5b609a1eaa1e7b078737",
+      "modified": false
+    },
+    {
+      "path": "src/enccluster/methods/bfuse.py",
+      "source": "SamaneMohammadi/EncCluster",
+      "source_commit": "9a1b4e00503813a69ecbe84bea564a087cf33ca3",
+      "source_path": "src/methods/bfuse.py",
+      "source_sha256": "e623e1fc4faabb0f48ad7715b0ce75ae1a7f2f54ed30e75e55380bdc23264797",
+      "released_sha256": "8cc6bb1e256da96b955c211bb3e828de1d2d5ba88e76467b165b989d3807f4d1",
+      "modified": true
+    },
+    {
+      "path": "src/enccluster/methods/cluster.py",
+      "source": "SamaneMohammadi/EncCluster",
+      "source_commit": "9a1b4e00503813a69ecbe84bea564a087cf33ca3",
+      "source_path": "src/methods/cluster.py",
+      "source_sha256": "9a6ad4942ed1f2a1f7ee50a645bf13b2e0a4307adcbfcc88e39d0b71e5a4b0f8",
+      "released_sha256": "3fea41619df053a11081dda4a409a9e0968eb961ad08256453edda2fcdc95ece",
+      "modified": true
+    },
+    {
+      "path": "src/enccluster/methods/enccluster.py",
+      "source": "SamaneMohammadi/EncCluster",
+      "source_commit": "9a1b4e00503813a69ecbe84bea564a087cf33ca3",
+      "source_path": "src/methods/enccluster.py",
+      "source_sha256": "777d27e45dc3179d57353a0bc8fa2f03b95745c8c4766e566685585d4fe2bb53",
+      "released_sha256": "48b90789e1385b7e37a0167d17a11424ee2527a7b3329b994b3415f8605f21be",
+      "modified": true
+    },
+    {
+      "path": "src/enccluster/methods/fedavg.py",
+      "source": "SamaneMohammadi/EncCluster",
+      "source_commit": "9a1b4e00503813a69ecbe84bea564a087cf33ca3",
+      "source_path": "src/methods/fedavg.py",
+      "source_sha256": "8229a5e5b9684a97a8cf57a53b2bd754e5047ce31f90f3ef0ecf67536039c4d2",
+      "released_sha256": "8229a5e5b9684a97a8cf57a53b2bd754e5047ce31f90f3ef0ecf67536039c4d2",
+      "modified": false
+    },
+    {
+      "path": "src/enccluster/network.py",
+      "source": "SamaneMohammadi/EncCluster",
+      "source_commit": "9a1b4e00503813a69ecbe84bea564a087cf33ca3",
+      "source_path": "src/network.py",
+      "source_sha256": "b5386854bc7cede3c58b01a17678f3ce044c777de26e3df52bb88536454d11f9",
+      "released_sha256": "24db049506aefb472899614b869ec903f025ef29faacf39c17e157ceec4bec96",
+      "modified": true
+    },
+    {
+      "path": "src/enccluster/train.py",
+      "source": "SamaneMohammadi/EncCluster",
+      "source_commit": "9a1b4e00503813a69ecbe84bea564a087cf33ca3",
+      "source_path": "src/train.py",
+      "source_sha256": "79f6a5a1271724ffc5f60c5545b7695be36d967b3733f77ad9bc48efcf8c82fe",
+      "released_sha256": "dab4370314d3ecc96a13a6481b01a7d7f951bd7d104ce71d57845695ce4ab98b",
+      "modified": true
+    },
+    {
+      "path": "modules/mife/.gitignore",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": ".gitignore",
+      "source_sha256": "87d245e02b6c96e62b7bbecd47790b05b4d6d0774c46e8f618701d35700ee4f1",
+      "released_sha256": "87d245e02b6c96e62b7bbecd47790b05b4d6d0774c46e8f618701d35700ee4f1",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/LICENSE",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "LICENSE",
+      "source_sha256": "3aac81821c89149088808b744583f5d63eee9f9f883cbb8991eda515fb540603",
+      "released_sha256": "3aac81821c89149088808b744583f5d63eee9f9f883cbb8991eda515fb540603",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/README.md",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "README.md",
+      "source_sha256": "157dfc2490b22b50e657c66cb6d76cec237c6ee70e41e03f4341c43584dd0024",
+      "released_sha256": "157dfc2490b22b50e657c66cb6d76cec237c6ee70e41e03f4341c43584dd0024",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/__init__.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "released_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/common.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/common.py",
+      "source_sha256": "2be456947c54f247318464a3648575319cb7f01c6955677a256fe70581f03f49",
+      "released_sha256": "2be456947c54f247318464a3648575319cb7f01c6955677a256fe70581f03f49",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/data/__init__.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/data/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "released_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/data/curve25519.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/data/curve25519.py",
+      "source_sha256": "a4012de9e1f1700c6ff4a507b2d254c3854dedf6e31c537c9e5db3253ba70edc",
+      "released_sha256": "a4012de9e1f1700c6ff4a507b2d254c3854dedf6e31c537c9e5db3253ba70edc",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/data/fastecdsa_wrapper.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/data/fastecdsa_wrapper.py",
+      "source_sha256": "891310c9cd1cca497616fcade3a40e845f43ce2022ca042c6765295df99f3a0c",
+      "released_sha256": "891310c9cd1cca497616fcade3a40e845f43ce2022ca042c6765295df99f3a0c",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/data/group.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/data/group.py",
+      "source_sha256": "57161001a93ff0f5ffa89aaa10808d62ba0e75301b1800086280e77ed31c8078",
+      "released_sha256": "57161001a93ff0f5ffa89aaa10808d62ba0e75301b1800086280e77ed31c8078",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/data/matrix.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/data/matrix.py",
+      "source_sha256": "c8589b953a42632e495078342bc865b8a6ab63fde753121186c8c6143b54b223",
+      "released_sha256": "c8589b953a42632e495078342bc865b8a6ab63fde753121186c8c6143b54b223",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/data/paillier.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/data/paillier.py",
+      "source_sha256": "7aab5df69f472f06063702008418f19cd589f6ebb8b9eab94abc592179cbc6df",
+      "released_sha256": "7aab5df69f472f06063702008418f19cd589f6ebb8b9eab94abc592179cbc6df",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/data/pairing.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/data/pairing.py",
+      "source_sha256": "31bbf3d2fd8f832cb72c715749a27aae7fb5524b470b6bfa6e8ebb0e3d062723",
+      "released_sha256": "31bbf3d2fd8f832cb72c715749a27aae7fb5524b470b6bfa6e8ebb0e3d062723",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/data/pyecc_bn128_wrapper.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/data/pyecc_bn128_wrapper.py",
+      "source_sha256": "1fe5c2c2923a4e4cb919faa0124cef9a2d73f4e653a0a8bf4e6b72aaa43690ac",
+      "released_sha256": "1fe5c2c2923a4e4cb919faa0124cef9a2d73f4e653a0a8bf4e6b72aaa43690ac",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/data/zmod.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/data/zmod.py",
+      "source_sha256": "5569d7317beb4b2f3cf8a3e2853c5aaf4afc32d15c093d095851e73e94c0d1ed",
+      "released_sha256": "5569d7317beb4b2f3cf8a3e2853c5aaf4afc32d15c093d095851e73e94c0d1ed",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/data/zmod_r.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/data/zmod_r.py",
+      "source_sha256": "9e67c558d321d37cdebd99425798a1c1577b6ce3ce744aacb0ce0553dec10893",
+      "released_sha256": "9e67c558d321d37cdebd99425798a1c1577b6ce3ce744aacb0ce0553dec10893",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/misc/__init__.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/misc/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "released_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/misc/cprf.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/misc/cprf.py",
+      "source_sha256": "3080f54613286ee516a94a359a64e7f481fb6115eac9b224b69420398eec9a12",
+      "released_sha256": "3080f54613286ee516a94a359a64e7f481fb6115eac9b224b69420398eec9a12",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/multi/__init__.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/multi/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "released_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/multi/damgard.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/multi/damgard.py",
+      "source_sha256": "43dccba9a6f9a977bf29c29726b92e77580474318fbc16ef0da181fac53c120f",
+      "released_sha256": "43dccba9a6f9a977bf29c29726b92e77580474318fbc16ef0da181fac53c120f",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/multiclient/__init__.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/multiclient/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "released_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/multiclient/damgard.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/multiclient/damgard.py",
+      "source_sha256": "fc2ecc98eed46b8f3cbf8a64f118767cc616cf2dd0f9ae040a72024b8650cb1c",
+      "released_sha256": "fc2ecc98eed46b8f3cbf8a64f118767cc616cf2dd0f9ae040a72024b8650cb1c",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/multiclient/decentralized/__init__.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/multiclient/decentralized/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "released_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/multiclient/decentralized/ddh.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/multiclient/decentralized/ddh.py",
+      "source_sha256": "31549a3611dcf039f406fdc005a3eff42e32093812d31ed3ab48c942e84b8aa8",
+      "released_sha256": "31549a3611dcf039f406fdc005a3eff42e32093812d31ed3ab48c942e84b8aa8",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/multiclient/decentralized/palia.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/multiclient/decentralized/palia.py",
+      "source_sha256": "58b7c771ed092d581d7903dcee2ea3441a6eca86e62134ebae8b9a56e57932a5",
+      "released_sha256": "58b7c771ed092d581d7903dcee2ea3441a6eca86e62134ebae8b9a56e57932a5",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/multiclient/rom/__init__.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/multiclient/rom/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "released_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/multiclient/rom/ddh.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/multiclient/rom/ddh.py",
+      "source_sha256": "b034b58b1b6a5408435ff6e6219490eac203d71ac46730001e597cf45c80c105",
+      "released_sha256": "b034b58b1b6a5408435ff6e6219490eac203d71ac46730001e597cf45c80c105",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/single/__init__.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/single/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "released_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/single/damgard.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/single/damgard.py",
+      "source_sha256": "ee130acd4078fbb33a8c2ac3bc1ceef155f46b95d13175a16487c9924570a8a7",
+      "released_sha256": "ee130acd4078fbb33a8c2ac3bc1ceef155f46b95d13175a16487c9924570a8a7",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/single/fhiding/ddh.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/single/fhiding/ddh.py",
+      "source_sha256": "e450e2ac1f10ab5506f43d4667ef8c29cdc21880a71d2a0af4915eef5cae66fd",
+      "released_sha256": "e450e2ac1f10ab5506f43d4667ef8c29cdc21880a71d2a0af4915eef5cae66fd",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/single/lwe.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/single/lwe.py",
+      "source_sha256": "55c8119996280c1cc8b3acc881e1c203f612c9272e360e79d6aa40e89d91d0d5",
+      "released_sha256": "55c8119996280c1cc8b3acc881e1c203f612c9272e360e79d6aa40e89d91d0d5",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/single/quadratic/ddh.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/single/quadratic/ddh.py",
+      "source_sha256": "4d2df4f35fbf5e02f46a5aeb432cc4ac229199ee242f952e40fce1486dab0cd9",
+      "released_sha256": "4d2df4f35fbf5e02f46a5aeb432cc4ac229199ee242f952e40fce1486dab0cd9",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/single/selective/__init__.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/single/selective/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "released_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/single/selective/ddh.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/single/selective/ddh.py",
+      "source_sha256": "7c3570cf107137076b5c4458e08317aa8e9eef240674bb8616c760e7981f5fd2",
+      "released_sha256": "7c3570cf107137076b5c4458e08317aa8e9eef240674bb8616c760e7981f5fd2",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/mife/single/selective/lwe.py",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "mife/single/selective/lwe.py",
+      "source_sha256": "93582934bc0a291338c416f0835b230dd7768f03d0e4f46ac36fb5f38276f32d",
+      "released_sha256": "93582934bc0a291338c416f0835b230dd7768f03d0e4f46ac36fb5f38276f32d",
+      "modified": false
+    },
+    {
+      "path": "modules/mife/pyproject.toml",
+      "source": "MechFroG88/PyMIFE",
+      "source_commit": "69938282ed17fd2f1ddb11102c1480ad6dc5c04b",
+      "source_path": "pyproject.toml",
+      "source_sha256": "8d11c467559ba88e34185a6360171a576c88b414cbe00c0e040314d2af3f8150",
+      "released_sha256": "8d11c467559ba88e34185a6360171a576c88b414cbe00c0e040314d2af3f8150",
+      "modified": false
+    },
+    {
+      "path": "modules/pyfilters/MANIFEST.in",
+      "source": "release-maintenance",
+      "released_sha256": "3fbb2b09e4a32293870fd8bb35aa79457d4d99f24d48f7b36453f9d561d59063"
+    },
+    {
+      "path": "modules/pyfilters/pyfilters/__init__.py",
+      "source": "SamaneMohammadi/EncCluster",
+      "source_commit": "9a1b4e00503813a69ecbe84bea564a087cf33ca3",
+      "source_path": "modules/pyfilters/pyfilters/__init__.py",
+      "source_sha256": "bd49ca4fb86f94dc974ce526b0fdcec40941baff4da7c90c7e709d68d3700e2d",
+      "released_sha256": "bd49ca4fb86f94dc974ce526b0fdcec40941baff4da7c90c7e709d68d3700e2d",
+      "modified": false
+    },
+    {
+      "path": "modules/pyfilters/pyfilters/ffibuild.py",
+      "source": "SamaneMohammadi/EncCluster",
+      "source_commit": "9a1b4e00503813a69ecbe84bea564a087cf33ca3",
+      "source_path": "modules/pyfilters/pyfilters/ffibuild.py",
+      "source_sha256": "3d28f443c000283be06ba2a2f9bac8f265304f30ce347e30c3426a3e1e04f77a",
+      "released_sha256": "3d28f443c000283be06ba2a2f9bac8f265304f30ce347e30c3426a3e1e04f77a",
+      "modified": false
+    },
+    {
+      "path": "modules/pyfilters/pyfilters/lib/LICENSE",
+      "source": "release-maintenance",
+      "released_sha256": "a111b5902eaeb94cb51b3ead2fef619724817bf55ebe561b3d7caeb1d5305190"
+    },
+    {
+      "path": "modules/pyfilters/pyfilters/lib/binaryfusefilter.h",
+      "source": "SamaneMohammadi/EncCluster",
+      "source_commit": "9a1b4e00503813a69ecbe84bea564a087cf33ca3",
+      "source_path": "modules/pyfilters/pyfilters/lib/binaryfusefilter.h",
+      "source_sha256": "024c950be375a6f0164928e3a601bc41612ae9d84f760da40f29f9f034dbb968",
+      "released_sha256": "024c950be375a6f0164928e3a601bc41612ae9d84f760da40f29f9f034dbb968",
+      "modified": false
+    },
+    {
+      "path": "modules/pyfilters/pyfilters/lib/xorfilter.h",
+      "source": "SamaneMohammadi/EncCluster",
+      "source_commit": "9a1b4e00503813a69ecbe84bea564a087cf33ca3",
+      "source_path": "modules/pyfilters/pyfilters/lib/xorfilter.h",
+      "source_sha256": "2fcb816b53d1813347c75c3bd3b3b0e691b8f69f20876803fc4b290492d26ffc",
+      "released_sha256": "2fcb816b53d1813347c75c3bd3b3b0e691b8f69f20876803fc4b290492d26ffc",
+      "modified": false
+    },
+    {
+      "path": "modules/pyfilters/pyfilters/pyfilters.py",
+      "source": "SamaneMohammadi/EncCluster",
+      "source_commit": "9a1b4e00503813a69ecbe84bea564a087cf33ca3",
+      "source_path": "modules/pyfilters/pyfilters/pyfilters.py",
+      "source_sha256": "b04e36ce80c4880c645dd7c433a5ef177570fcb21fa80aca0d99f75ca06bb42f",
+      "released_sha256": "e528211d1d985d586985a553691fe245f9d5743b68abd4fab3c7760236fc2525",
+      "modified": true
+    },
+    {
+      "path": "modules/pyfilters/pyproject.toml",
+      "source": "release-maintenance",
+      "released_sha256": "3afd99631830e9019452d908aa667dadd79ee3a64235f3f5bd44bfa6ae76755f"
+    },
+    {
+      "path": "modules/pyfilters/setup.py",
+      "source": "SamaneMohammadi/EncCluster",
+      "source_commit": "9a1b4e00503813a69ecbe84bea564a087cf33ca3",
+      "source_path": "modules/pyfilters/setup.py",
+      "source_sha256": "ebb91abe2ecd15801227131d4401bbfb00edef1004e7013af2ce6db5c9671590",
+      "released_sha256": "8a3cf5e15f7734b9657a39d504d52905048185a1147e45bfdffda9106d172fb5",
+      "modified": true
+    }
+  ]
+}

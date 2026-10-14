@@ -1,6 +1,6 @@
 cff-version: 1.2.0
-message: "Please cite the EncCluster paper. This repository contains project references only."
-title: "EncCluster project references"
+message: "Please cite the EncCluster paper. See REPRODUCIBILITY.md for implementation scope."
+title: "EncCluster research implementation"
 type: software
 authors:
   - family-names: Tsouvalas
