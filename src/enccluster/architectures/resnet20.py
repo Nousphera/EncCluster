@@ -1,3 +1,4 @@
+# Modified 2026-10-15: apply the residual shortcut before the final ReLU.
 import torch
 
 class LambdaLayer(torch.nn.Module):
@@ -40,9 +41,7 @@ class BasicBlock(torch.nn.Module):
 		out = torch.nn.functional.relu(out)
 		out = self.conv2(out)
 		out = self.bn2(out)
-		out_relu = torch.nn.functional.relu(out)
-		out_relu += self.shortcut(identity)
-		return out
+		return torch.nn.functional.relu(out + self.shortcut(identity))
 
 class ResNet20(torch.nn.Module):
 

@@ -25,7 +25,4 @@ testpaths = ["tests"]
 addopts = "-ra"
 
 [tool.setuptools]
-license-files = ["LICENSE", "NOTICE", "licenses/*"]
-
-[tool.setuptools.package-data]
-enccluster = ["UPSTREAM-LICENSE"]
+license-files = ["LICENSE", "THIRD_PARTY_LICENSES"]

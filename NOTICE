@@ -1,8 +1,0 @@
-EncCluster research implementation
-
-Research source: Samaneh Mohammadi and the EncCluster authors.
-Source and license records: PROVENANCE.md and licenses/UPSTREAM-LICENSE.
-
-PyMIFE: Copyright (c) 2023 Tan Kel Zin, MIT; modules/mife/LICENSE.
-pyfilters wrapper: Vasileios Tsouvalas; Apache 2.0 declared in original setup.py; see PROVENANCE.md for component license records.
-FastFilter/xor_singleheader native headers: Apache-2.0; licenses/XOR-SINGLEHEADER-LICENSE.

@@ -1,4 +1,4 @@
-# Modified 2026-10-15: coordinate-labelled decentralized FE; see REPRODUCIBILITY.md.
+# Modified 2026-10-15: coordinate-labelled decentralized FE; see README.md.
 from enccluster.clustering import weight_clustering, unflatten_state, aggregate_buffers
 from enccluster.filters import encode_mapping, reconstruct_mapping
 from enccluster.coordinate_fe import setup

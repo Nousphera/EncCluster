@@ -1,4 +1,4 @@
-# Modified 2026-10-15: stable client/server hashing; source provenance in PROVENANCE.md.
+# Modified 2026-10-15: stable client/server hashing; component attribution in THIRD_PARTY_LICENSES.
 from ._xorfilter import lib, ffi
 from ctypes import c_ulonglong
 import struct

@@ -1,8 +1,8 @@
-# Modified 2026-10-15: standalone training integration; see PROVENANCE.md.
+# Modified 2026-10-15: standalone training integration; see THIRD_PARTY_LICENSES.
 """Local federated training with decentralized coordinate-labelled FE.
 
 Each client encrypts its expanded model vector, sending one ciphertext per
-coordinate. See REPRODUCIBILITY.md for the protocol and experiment settings.
+coordinate. See README.md for the protocol and experiment settings.
 """
 
 import argparse
@@ -19,32 +19,9 @@ from torch.utils.data import DataLoader, Subset, TensorDataset
 PROJECT = "EncCluster"
 
 
-class Tiny(torch.nn.Module):
-    def __init__(self, classes=3, image=False):
-        super().__init__()
-        self.body = (
-            torch.nn.Sequential(
-                torch.nn.AdaptiveAvgPool2d((2, 2)),
-                torch.nn.Flatten(),
-                torch.nn.Linear(12, classes),
-            )
-            if image
-            else torch.nn.Linear(4, classes)
-        )
-        self.label2class = {i: i for i in range(classes)}
-
-    @property
-    def device(self):
-        return next(self.parameters()).device
-
-    def forward(self, x):
-        return self.body(x)
-
-
 class ImageModel(torch.nn.Module):
-    def __init__(self, name, classes, pretrained=False):
+    def __init__(self, name, classes):
         super().__init__()
-        import torchvision.models as models
         from enccluster.network import Model
 
         self.body = Model(name, classes)
@@ -86,11 +63,11 @@ def partition(targets, clients, alpha, seed):
 def load_data(args):
     if args.dataset == "synthetic":
         generator = torch.Generator().manual_seed(args.seed)
-        x = torch.rand(args.clients * args.samples_per_client, 4, generator=generator)
-        y = x[:, :3].argmax(1).long()
+        x = torch.rand(args.clients * args.samples_per_client, 3, 32, 32, generator=generator)
+        y = x.mean(dim=(2, 3)).argmax(1).long()
         train = TensorDataset(x, y)
-        test_x = torch.rand(48, 4, generator=generator)
-        test = TensorDataset(test_x, test_x[:, :3].argmax(1))
+        test_x = torch.rand(4, 3, 32, 32, generator=generator)
+        test = TensorDataset(test_x, test_x.mean(dim=(2, 3)).argmax(1))
         indices = [
             list(range(i * args.samples_per_client, (i + 1) * args.samples_per_client))
             for i in range(args.clients)
@@ -99,7 +76,7 @@ def load_data(args):
     from torchvision import transforms
     from .dataset_io import load_prepared, prepare_dataset, labels
 
-    size = 224 if args.model == "vit_b_32" else 32
+    size = 32
     transform = transforms.Compose(
         [transforms.Resize((size, size)), transforms.ToTensor()]
     )
@@ -166,7 +143,7 @@ def main(argv=None):
         choices=["synthetic", "cifar10", "cifar100", "imagefolder"],
         default="synthetic",
     )
-    p.add_argument("--model", default="tiny")
+    p.add_argument("--model", choices=['resnet20', 'convnext', 'convmixer256_8', 'mobilenet_v2'], default="resnet20")
     p.add_argument("--clients", type=int, default=2)
     p.add_argument("--rounds", type=int, default=2)
     p.add_argument("--samples-per-client", type=int, default=8)
@@ -216,18 +193,12 @@ def main(argv=None):
         or math.floor(args.clients * args.participation) < 2
     ):
         p.error("Participation must select at least two clients")
-    if args.dataset == "synthetic" and args.model != "tiny":
-        p.error("Synthetic features require --model tiny")
     random.seed(args.seed)
     np.random.seed(args.seed)
     torch.manual_seed(args.seed)
     torch.set_num_threads(1)
     train, test, partitions, targets, classes = load_data(args)
-    model = (
-        Tiny(classes, args.dataset != "synthetic")
-        if args.model == "tiny"
-        else ImageModel(args.model, classes)
-    ).to(args.device)
+    model = ImageModel(args.model, classes).to(args.device)
     test_loader = DataLoader(test, batch_size=args.batch_size, num_workers=0)
     history = []
     rng = np.random.default_rng(args.seed)

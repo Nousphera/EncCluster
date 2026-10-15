@@ -46,7 +46,7 @@ source .venv/bin/activate
 python -m pip install -c constraints.txt -r requirements.txt
 ```
 
-Requirements install the vendored PyMIFE source and native cryptographic dependencies, and build the bundled Binary Fuse C bindings. Installation and tests do not download datasets or model weights. See [attribution and licenses](PROVENANCE.md).
+Requirements install the vendored PyMIFE source and native cryptographic dependencies, and build the bundled Binary Fuse C bindings. Installation and tests do not download datasets or model weights. See [third-party licenses](THIRD_PARTY_LICENSES).
 
 ## Data
 
@@ -63,23 +63,23 @@ For an explicit image dataset split, use `--dataset imagefolder --source /path/t
 
 ## Training
 
-A two-round offline check trains real client models and executes real P-256 functional encryption:
+A bounded offline check trains the full paper architecture on generated images with plaintext FedAvg:
 
 ```bash
-enccluster-train --output runs/smoke.json
+enccluster-train --method fedavg --samples-per-client 2 --rounds 1 --output runs/check.json
 ```
 
 Run the prepared CIFAR data through the same primary trainer:
 
 ```bash
-enccluster-train --dataset cifar10 --data-root data --model tiny \
-  --clients 2 --rounds 2 --alpha 10 --precision 1 --output runs/cifar10.json
+enccluster-train --dataset cifar10 --data-root data --model resnet20 \
+  --clients 30 --rounds 100 --alpha 10 --local-epochs 1 --kappa 128 --precision 3 --output runs/cifar10.json
 enccluster-train --help
 ```
 
-`--method fedavg|cluster|bfuse|enccluster` selects the plaintext baseline and method components. `--bpe 8|16` sets Binary Fuse fingerprint width. Supported image models are `resnet20`, `mlpmixer` and `convnext`; `tiny` provides a compact image model for setup checks. Full-model coordinate FE can be expensive.
+`--method fedavg|cluster|bfuse|enccluster` selects the plaintext baseline and method components. `--bpe 8|16` sets Binary Fuse fingerprint width. All models train from scratch on 32×32 RGB images, as in paper §5.1. Supported models are `resnet20` (3/3/3 residual blocks, author GroupNorm configuration), `convnext` (the authors’ CIFAR configuration, widths 32/64/128 and depths 2/4/2), `convmixer256_8` (official CIFAR ConvMixer, width 256, depth 8, patch 2, kernel 5), and `mobilenet_v2` (torchvision, width 1.0). The paper calls its 0.16M-parameter CIFAR model “ConvNeXt-Tiny”; this is distinct from torchvision’s 28M ImageNet ConvNeXt-Tiny. MLP-Mixer is not one of the evaluated paper architectures. Full-model coordinate FE can be expensive.
 
-The runner simulates clients and aggregation in one process. [Implementation and experiment settings](REPRODUCIBILITY.md) describe the protocol, numerical representation and evaluation metrics.
+The runner simulates clients and aggregation in one process. Synthetic images check execution only; their metrics are not benchmark results. Encrypted runs process every model coordinate and can be expensive.
 
 ## Evaluation
 
@@ -117,7 +117,16 @@ The paper's encrypted-centroid protocol sends 28.4% of FedAvg's upstream volume 
 
 The implementation uses decentralized, coordinate-labelled functional encryption on P-256. Clients cluster weights, expand their local vector, and encrypt each coordinate with a unique session/round/position label. Each client sends **d ciphertexts for d model coordinates**; the paper's compressed transport uses κ encrypted centroids. These are different communication and encryption costs. Client secrets stay in client objects; the aggregation object holds public parameters and functional shares. BatchNorm buffers are aggregated in plaintext.
 
-All selected clients must contribute to a round. This local simulator uses in-process message delivery; network authentication, process isolation and dropout recovery require a separate deployment layer. [Protocol details](REPRODUCIBILITY.md) specify fixed-point precision, public bounds and aggregation checks.
+All selected clients must contribute to a round. This local simulator uses in-process message delivery; network authentication, process isolation and dropout recovery require a separate deployment layer.
+
+
+Public setup fixes the active cohort, positive integer sample counts, parameter layout, precision and absolute bound. Clients generate independent secrets, exchange pairwise public keys and generate functional shares; the server checks participant IDs, function weights, dimensions and labels. Each selected client must reply. Cryptographic keys use OS entropy independently of the training seed; a changed cohort receives fresh setup.
+
+Weights are rounded after multiplication by `10**precision`. Decryption divides the integer weighted sum by `sum(sample_counts) * 10**precision`; its rounding error is at most `0.5 / 10**precision` per coordinate relative to the reconstructed clustered mean. Nonfinite and out-of-bound weights fail. The public decryption interval is fixed at setup to `±ceil(max_abs * 10**precision + 0.5) * sum(sample_counts)`, and is reused only for that cohort/configuration. Larger bounds, precision and dimensions increase discrete-log work; clustering adds approximation error and coarse precision can erase updates.
+
+K-means clustering uses the run seed and four initializations. Native Fuse8/Fuse16 filters use stable client/server prehashing and a three-location construction. When several clusters match a position, reconstruction chooses the smallest match; false positives introduce approximation error before encryption. BatchNorm integer counters retain the first client value.
+
+The bounded test suite exercises full paper architectures, image preparation, forward/backward passes, plaintext training and checkpoints. Separate small-array tests execute real P-256 encryption, weighted aggregation and malformed-message rejection. It does not encrypt an entire production backbone in CI and does not reproduce the paper benchmarks. Run `python -m pytest -q` and `python -m pip check`; tested dependency versions are in `constraints.txt`.
 
 ## Citation
 
@@ -137,4 +146,4 @@ All selected clients must contribute to a round. This local simulator uses in-pr
 
 ## License and attribution
 
-See [LICENSE](LICENSE), [NOTICE](NOTICE), and [PROVENANCE.md](PROVENANCE.md) for the component licenses and source attribution. Third-party code retains its original notices. The pyfilters wrapper and native headers have separate license records in that guide.
+[LICENSE](LICENSE) covers the repository software. [THIRD_PARTY_LICENSES](THIRD_PARTY_LICENSES) preserves component attribution and complete third-party terms. Independently buildable vendored packages retain their own license files; dataset and pretrained-model access terms remain separate.

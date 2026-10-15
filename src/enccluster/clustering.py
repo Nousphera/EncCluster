@@ -1,4 +1,4 @@
-# Modified 2026-10-15: namespaced release integration; see PROVENANCE.md.
+# Modified 2026-10-15: namespaced release integration; see THIRD_PARTY_LICENSES.
 import numpy as np
 from sklearn.cluster import KMeans
 

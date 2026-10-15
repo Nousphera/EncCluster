@@ -1,4 +1,4 @@
-# Modified 2026-10-15: namespaced release integration; see PROVENANCE.md.
+# Modified 2026-10-15: namespaced release integration; see THIRD_PARTY_LICENSES.
 import torch
 import torchmetrics
 from enccluster.architectures import *
@@ -7,12 +7,27 @@ from enccluster.architectures import *
 def get_backbone(name):
 	if name=='resnet20':
 		return ResNet20
-	elif name=='mlpmixer':
-		return MLPMixer
+	elif name=='convmixer256_8':
+		return ConvMixer256_8
+	elif name=='mobilenet_v2':
+		return MobileNetV2
 	elif name=='convnext':
 		return ConvNeXT
 	else:
 		raise NotImplementedError(f'Architecture {name} not implemented')
+
+class MobileNetV2(torch.nn.Module):
+    """Official torchvision MobileNetV2, width multiplier 1.0, from scratch."""
+    embeddings_dim = 1280
+
+    def __init__(self):
+        super().__init__()
+        from torchvision.models import mobilenet_v2
+        self.features = mobilenet_v2(weights=None).features
+        self.dropout = torch.nn.Dropout(0.2)
+
+    def forward(self, x):
+        return self.dropout(self.features(x).mean(dim=(2, 3)))
 
 class CutMixCrossEntropyLoss(torch.nn.Module):
 
