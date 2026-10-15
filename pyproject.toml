@@ -28,5 +28,5 @@ addopts = "-ra"
 license-files = ["LICENSE", "THIRD_PARTY_LICENSES"]
 
 [tool.setuptools.data-files]
-"share/enccluster" = ["constraints.txt", "CITATION.cff", "citation.bib", "DATASETS.md"]
+"share/enccluster" = ["CITATION.cff", "citation.bib", "DATASETS.md"]
 "share/enccluster/tests" = ["tests/conftest.py"]

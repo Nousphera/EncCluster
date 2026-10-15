@@ -1,3 +1,4 @@
+# Install the bundled cryptographic and Binary Fuse implementations.
 ./modules/mife
 ./modules/pyfilters
 -e .[test]
