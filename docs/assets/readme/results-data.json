@@ -1,0 +1,54 @@
+{
+  "title": "Less encryption work and upstream traffic",
+  "context": "CIFAR-10, ResNet-20, 30 clients, full participation, 128 clusters, 256-bit key. IID uses Dir(10); non-IID uses Dir(0.1). Accuracy changes are percentage points versus FedAvg; upstream ratios and seconds are lower-is-better.",
+  "source": {
+    "label": "Table 3, CIFAR-10 with full participation \u00b7 PDF page 12",
+    "url": "https://arxiv.org/pdf/2406.09152v1#page=12"
+  },
+  "columns": [
+    "Method",
+    "IID accuracy \u0394 (pp)",
+    "Non-IID accuracy \u0394 (pp)",
+    "Upstream / FedAvg",
+    "Encryption (s)"
+  ],
+  "rows": [
+    {
+      "label": "FedAvg + weight clustering",
+      "values": [
+        "-0.12",
+        "-0.71",
+        "0.034",
+        "\u2014"
+      ]
+    },
+    {
+      "label": "DeTrust-FL",
+      "values": [
+        "-0.09",
+        "-0.10",
+        "3.743",
+        "329.53"
+      ]
+    },
+    {
+      "label": "SEFL",
+      "values": [
+        "-0.98",
+        "-1.74",
+        "2.581",
+        "7.64"
+      ]
+    },
+    {
+      "label": "EncCluster",
+      "values": [
+        "-0.32",
+        "-0.79",
+        "0.284",
+        "2.04"
+      ],
+      "highlight": true
+    }
+  ]
+}
