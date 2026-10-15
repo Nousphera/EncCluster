@@ -1,114 +1,63 @@
-# Code-to-paper mapping and reproduction limits
+# Implementation and experiment settings
 
-Reference audited: arXiv:2406.09152v1, Sections 2–5, Algorithms 1–2 and
-Appendix A. The 2025 PMC publication and NeurIPS 2024 workshop are separate
-versions; no cross-version result equivalence is assumed.
+EncCluster combines local training, K-means weight clustering, Binary Fuse membership filters and encrypted aggregation. See [the paper](https://doi.org/10.1016/j.pmcj.2025.102021) and [preprint methods](https://arxiv.org/abs/2406.09152).
 
-| Paper component | Implementation | Status |
+| Component | Code | Behavior |
 |---|---|---|
-| Local training + K-means weight clustering, Eq. 5 | `train.py`, `clustering.py` | Real optimizer steps; recovered model architectures and K-means |
-| Binary Fuse membership and reconstruction, Eq. 6 | `filters.py`, native `modules/pyfilters` | Genuine Fuse8/Fuse16, stable client/server prehash; first positive match chooses cluster |
-| Client-generated secret keys and functional shares | `coordinate_fe.py`, vendored PyMIFE decentralized DDH | Executed with P-256; server has public parameters only |
-| Encrypted centroid substitution, Algorithm 2 | Client reconstructs its filter then encrypts every coordinate | Numerically equivalent reconstruction, different encrypted transport and cost |
-| Sample-weighted FedAvg | `methods/enccluster.py` | Exact integer sample counts; signed fixed-point roundtrip checked |
-| FedAvg / cluster / BF ablations | `methods/` | Executable plaintext controls |
-| Paper communication/privacy/architecture tables | No reproduced result artifacts | Not inferred from smoke checks |
+| Local training | `src/enccluster/train.py`, `network.py` | Seeded client training with tiny, ResNet20, MLP-Mixer or ConvNeXt models |
+| Weight clustering | `clustering.py` | K-means centroids and a coordinate-to-centroid map |
+| Probabilistic map | `filters.py`, `modules/pyfilters` | Native Fuse8/Fuse16 membership with stable client/server prehashing |
+| Encrypted aggregation | `coordinate_fe.py`, `methods/enccluster.py` | Client-side map reconstruction followed by coordinate-labelled P-256 encryption |
+| Controls | `methods/` | Plain FedAvg, clustering-only and Binary-Fuse reconstruction |
 
-The paper's principal setup uses CIFAR-10/100, ResNet-20, 30 clients, one local
-epoch, 128 clusters, 256-bit keys, Dir(10) or Dir(0.1), and 100/full or
-300–500/20%-participation rounds. Source defaults differ. The maintained harness
-exposes cohort, participation, seed and clustering controls, but its coordinate
-FE mode changes the transmitted ciphertext count. It does not implement the
-paper's reported communication protocol. The current CIFAR path uses resize and
-ToTensor; the paper's AutoAugment pipeline is not reproduced.
+## Clustering and filters
 
-Native filters have false positives; the server's map was intended to be
-recoverable in the paper. The maintained coordinate mode reconstructs the map on
-the client before encryption. A first-match rule chooses the smallest matching
-cluster. This policy is explicit and can differ from historical implementations
-when multiple clusters match. The C header source uses its existing Binary Fuse
-construction; the paper's stated 4-wise characterization was not independently
-verified. Filter error is not a differential-privacy guarantee.
+`--method fedavg|cluster|bfuse|enccluster` selects the full pipeline or a component control. `--kappa` sets the number of centroids and `--bpe 8|16` selects the Binary Fuse fingerprint width. Membership queries recover a centroid assignment for each model position; if more than one cluster matches, the smallest matching cluster is used. The client reconstructs this approximate clustered vector before encryption.
 
-The old Flower launchers had server-side encryption, plaintext incoming models,
-incorrect sample-count handling and inconsistent import/configuration paths. They
-remain in the external recovery snapshot for audit, not in the public execution
-path. The new harness is an actual local federated loop; no superficial Flower
-adapter is advertised as a distributed deployment.
+The bundled native Binary Fuse implementation uses its own three-location construction. Filter false positives can change assignments; clustering and filter reconstruction are lossy operations. Filter error is an approximation effect. Full FE runs use the reconstructed coordinate vector, as specified below.
 
-## Protocol boundary
+## Experiment configuration
 
-The recovered compressed wrappers encrypted every centroid with the same scalar
-key and round label. In that construction, subtracting two ciphertexts cancels
-the shared mask and exposes a bounded discrete-log encoding of the centroid
-difference. The wrappers also held a central master key; the original EncCluster
-Flower path sent plaintext centroids and mappings to the server before encryption.
-Those paths are **not shipped as runnable options**.
+The CLI exposes client count, participation, local epochs, batch size, learning rate, seed, Dirichlet concentration, model and quantization. CIFAR-10/100 use their official train/test splits. Images are resized to 32×32 and converted to tensors; image models apply CIFAR normalization internally. The default synthetic case is a complete offline execution check.
 
-The maintained path uses PyMIFE's existing `FeDDHMultiClientDec` primitive:
-public P-256 parameters, independent client secrets, pairwise key exchange,
-client-generated functional shares, and server decryption with all shares.
-Each expanded model coordinate has a unique session/round/coordinate label.
-The server object retains no client private keys. It checks the participant set,
-function weights, labels and dimensions. Cryptographic keys use OS entropy;
-training seeds do not seed keys. The local simulator holds all parties in one
-process and supplies their messages directly; authenticated transport, process
-isolation, persistent keys, dropout recovery and distributed key provisioning
-are not implemented. Application input checks are not a cryptographic proof.
+The paper's principal settings include CIFAR-10/100, ResNet-20, 30 clients, one local epoch, 128 centroids, 256-bit keys, and Dirichlet concentration 10 or 0.1. Configure the run length and participation for the experiment being studied; the CLI defaults are intentionally small. The seeded Dirichlet partitioner uses each training sample once and rejects empty clients. At least two clients must be active in encrypted rounds.
 
-This conservative mode sends **d ciphertexts per client**, not kappa encrypted
-centroids. It therefore cannot substantiate the paper's encryption-time or
-communication claims. Reintroducing centroid reuse requires a compatible
-multi-message/label construction and a security argument covering substitution;
-changing only the tag to a centroid index is insufficient when different clients
-select different centroid indices at the same model position.
+## Coordinate-labelled functional encryption
 
-PyMIFE is a research library whose authors explicitly state that it is not
-peer-reviewed. Tests establish arithmetic and application invariants, not a
-security certification. The current release is a research implementation with
-these stated differences, not a complete reproduction of the paper protocol.
+Aggregation uses PyMIFE's `FeDDHMultiClientDec` primitive over P-256: public parameters, independent client secrets, pairwise key exchange, client-generated functional shares and decryption of the sample-weighted sum. Each expanded coordinate has a unique session/round/coordinate label. The aggregator holds public parameters and shares; it checks participant IDs, function weights, labels and dimensions. Keys use operating-system entropy independently of training seeds.
 
-## Numeric contract
+Each client sends **d ciphertexts for d model coordinates**. The paper's compressed-centroid transport uses κ ciphertexts; the implemented coordinate transport has a different cost. Client-side expansion gives every coordinate its own encryption label even when several coordinates use the same centroid. BatchNorm running statistics are averaged in plaintext and integer counters retain the first client value.
 
-Clients agree on the active cohort, positive integer sample counts, model layout,
-fixed-point precision and public absolute weight bound before setup. Each scalar
-is rounded to the nearest integer after multiplication by `10**precision`.
-Decryption returns the sample-weighted mean of those fixed-point values.
-Quantization alone introduces at most `0.5 / 10**precision` absolute error per
-coordinate relative to the reconstructed clustered mean. K-means/filter error
-is additional. Oversized/nonfinite values are rejected, not silently clipped.
-The bounded discrete-log search can be expensive for large sample counts,
-precision or models. This execution mode is intended for bounded experiments.
-BatchNorm running statistics are aggregated in plaintext; integer counters
-retain the source convention. These buffers are outside the encrypted guarantee.
+The executable is a local simulator: all parties run in one process and exchange messages directly. Each selected client must reply. Authenticated transport, client-process isolation, persistent key provisioning and dropout handling belong to a deployment layer. PyMIFE is a research cryptography library; application tests verify arithmetic and message invariants.
 
-## Reproducibility
+## Numerical representation
 
-Python 3.12 on Apple Silicon was used for release checks. Supported metadata is
-Python 3.11–3.13; other Python/platform combinations have not been executed here.
-`constraints.txt` records the tested dependency closure. Model/training,
-partition and clustering randomness is seeded; crypto randomness remains fresh.
-The JSON output records CLI settings, exact partition indices, forget indices
-when applicable, participant IDs, sample counts, losses and accuracies. It does
-not contain input records, weights, private keys or claims of benchmark parity.
+Clients agree on the active cohort, positive integer sample counts, model layout, fixed-point precision and public absolute weight bound. A weight is rounded after multiplication by `10**precision`; decryption returns the sample-weighted mean of those integers, scaled back to real values. The fixed-point rounding error is at most `0.5 / 10**precision` per coordinate relative to the reconstructed clustered mean; clustering and filter approximation add their own error. Nonfinite and out-of-bound values fail validation.
 
-The default two-round synthetic test uses two clients, eight training samples per
-client, three classes, a 4-to-3 linear model, four K-means centroids, precision 2,
-CPU and one local epoch. No data/model download occurs on import, installation
-or test. `--download` is required to fetch CIFAR. `--pretrained` explicitly allows
-weights to be fetched for supported EFU image models. No paper checkpoints or
-paper-result logs are included. No GPU run or full paper benchmark was executed.
+Larger precision, sample counts and model dimensions increase bounded discrete-log work. Coarse precision can erase small updates. Use the tiny model to check the complete path before allocating a full-model experiment, and record `kappa`, `precision` and `max_abs` with results. A changed active cohort receives a fresh decentralized setup.
 
-The shared CLI supports Dirichlet label partitioning for CIFAR, explicit
-participation, local epochs, learning rate, seed, model, precision, public bound
-and output path. It rejects empty clients and cohorts with fewer than two active
-participants. A changed cohort gets a fresh decentralized setup. Setup cost is
-included in the current simulator and is not comparable to the paper timings.
+## Data, randomness and saved results
 
-## Release artifact protection
+[DATASETS.md](DATASETS.md) specifies preparation and consumed paths. `scripts/prepare_data.py` creates `ROOT/DATASET/manifest.json`; the trainer's `--data-root` is the same parent root. Run `--validate` before an experiment to hash every file. Training checks split sizes, class maps and label order, and records the manifest SHA256.
 
-The maintained CLI rejects an existing output JSON or sibling checkpoint before training. Final `.pt` files contain CPU state dictionaries, configuration and class count, loadable with `torch.load(path, weights_only=True, map_location="cpu")`. The JSON includes Python, platform, torch and NumPy versions. Save the dependency constraints and input-data version alongside the run. Encryption key generation remains random; seeded training does not imply deterministic ciphertext bytes.
+Training, partitioning and K-means use explicit seeds; cryptographic randomness stays fresh. The default synthetic configuration uses two clients, eight training vectors per client, three classes, a linear model, four centroids, precision 2, CPU and one local epoch. Imports, installation and tests require no dataset or pretrained-weight download.
 
-## Dataset setup follow-up
+JSON records configuration, exact client partitions, participants, sample counts, metrics and Python/platform/Torch/NumPy versions. The sibling `.pt` contains CPU model tensors, configuration and class information:
 
-[DATASETS.md](DATASETS.md) defines the maintained preparation contract. Training now consumes `ROOT/DATASET` roots created by `scripts/prepare_data.py`; older direct CIFAR roots can be imported with `--source`. The preparation manifest identifies class maps, split sizes, label order and file hashes. Reports include its SHA256. Generated source-format fixtures exercise import, validation and actual training; their metrics are correctness diagnostics. No newly implemented ingestion path implies recovered historical splits or reproduced benchmark results.
+```python
+import torch
+checkpoint = torch.load("runs/experiment.pt", weights_only=True, map_location="cpu")
+```
+
+Existing output or checkpoint paths are rejected before training. Keep the prepared manifest, dependency constraints and seed with each result. Client keys and plaintext input records are excluded from reports.
+
+## Validation
+
+```bash
+python -m pip check
+python -m pytest -q
+```
+
+The suite covers seeded partitions, the primary trainer, prepared image inputs, signed fixed-point encrypted aggregation, sample weighting, participant/message validation and checkpoint output. `constraints.txt` records the dependency versions tested with Python 3.12 on macOS arm64.
+
+Native-filter tests cover membership roundtrips, stable hashing across processes, reconstruction, signed clustered aggregation and both fingerprint widths.

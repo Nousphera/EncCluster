@@ -2,13 +2,15 @@
 
 **EncCluster: Scalable Functional Encryption in Federated Learning through Weight Clustering and Probabilistic Filters**
 
-[Paper](https://www.sciencedirect.com/science/article/pii/S1574119225000100) · [Preprint](https://arxiv.org/abs/2406.09152) · [Project](https://nousphera.github.io/EncCluster/) · [Citation](CITATION.cff)
+[<img src="docs/assets/icons/paper.svg" width="16" height="16" alt=""> Paper](https://www.sciencedirect.com/science/article/pii/S1574119225000100) · [<img src="docs/assets/icons/project.svg" width="16" height="16" alt=""> Project](https://nousphera.github.io/EncCluster/) · [<img src="docs/assets/icons/code.svg" width="16" height="16" alt=""> Code](https://github.com/Nousphera/EncCluster) · [Citation](CITATION.cff)
+
+Vasileios Tsouvalas · Samaneh Mohammadi · Ali Balador · Tanir Ozcelebi · Francesco Flammini · Nirvana Meratnia
+
+Pervasive and Mobile Computing 108, 102021 (2025)
 
 ## Abstract
 
 Federated Learning (FL) enables model training across decentralized devices by communicating solely local model updates to an aggregation server. Although such limited data sharing makes FL more secure than centralized approached, FL remains vulnerable to inference attacks during model update transmissions. Existing secure aggregation approaches rely on differential privacy or cryptographic schemes like Functional Encryption (FE) to safeguard individual client data. However, such strategies can reduce performance or introduce unacceptable computational and communication overheads on clients running on edge devices with limited resources. In this work, we present EncCluster, a novel method that integrates model compression through weight clustering with recent decentralized FE and privacy-enhancing data encoding using probabilistic filters to deliver strong privacy guarantees in FL without affecting model performance or adding unnecessary burdens to clients. We performed a comprehensive evaluation, spanning various datasets and architectures, to demonstrate EncCluster's scalability across encryption levels. Our findings reveal that EncCluster significantly reduces communication costs - below even conventional FedAvg - and accelerates encryption by more than four times over all baselines; at the same time, it maintains high model accuracy and enhanced privacy assurances.
-
-*The abstract describes the paper. This maintained research implementation uses decentralized coordinate-labelled FE. It does not reproduce the paper's compressed-ciphertext costs or establish its security claims.* See [implementation scope](REPRODUCIBILITY.md).
 
 ## Setup
 
@@ -22,7 +24,7 @@ source .venv/bin/activate
 python -m pytest -q
 ```
 
-The setup script creates the venv, installs `requirements.txt` with the tested `constraints.txt`, and runs `pip check`. It selects installed macOS Command Line Tools without accepting an Xcode license. Equivalent manual setup:
+The setup script creates the venv, installs `requirements.txt` with the tested `constraints.txt`, and runs `pip check`. On macOS it selects the installed standalone Command Line Tools. Equivalent manual setup:
 
 ```bash
 python3.12 -m venv .venv
@@ -32,7 +34,7 @@ source .venv/bin/activate
 python -m pip install -c constraints.txt -r requirements.txt
 ```
 
-Requirements install the vendored PyMIFE source and native cryptographic dependencies, and build the bundled Binary Fuse C bindings. Installation and tests do not download datasets or model weights. See [source attribution](PROVENANCE.md).
+Requirements install the vendored PyMIFE source and native cryptographic dependencies, and build the bundled Binary Fuse C bindings. Installation and tests do not download datasets or model weights. See [attribution and licenses](PROVENANCE.md).
 
 ## Datasets
 
@@ -63,15 +65,19 @@ enccluster-train --dataset cifar10 --data-root data --model tiny \
 enccluster-train --help
 ```
 
-`--method fedavg|cluster|bfuse|enccluster` selects the plaintext baseline and method components. `--bpe 8|16` sets Binary Fuse fingerprint width. Recovered full models are `resnet20`, `mlpmixer` and `convnext`; `tiny` is a diagnostic image model. Full-model coordinate FE can be expensive.
+`--method fedavg|cluster|bfuse|enccluster` selects the plaintext baseline and method components. `--bpe 8|16` sets Binary Fuse fingerprint width. Supported image models are `resnet20`, `mlpmixer` and `convnext`; `tiny` provides a compact image model for setup checks. Full-model coordinate FE can be expensive.
 
-The maintained runner is a local federated simulation, with all parties in one process. Its input and aggregation paths are described in [REPRODUCIBILITY.md](REPRODUCIBILITY.md).
+The runner simulates clients and aggregation in one process. [Implementation and experiment settings](REPRODUCIBILITY.md) describe the protocol, numerical representation and evaluation metrics.
 
-## Outputs and reproducibility
+## Outputs
 
 Each named run saves JSON containing configuration, data-manifest hash, exact client partitions, participant/sample counts, metrics and environment versions. A sibling `.pt` stores the final CPU state dictionary and configuration, loadable with `torch.load(..., weights_only=True)`. Existing JSON/checkpoint paths are protected; choose a new output name to rerun. Save the input manifest and run `--validate` before a research experiment; training checks label/split identity, while full file hashing is an explicit preparation check.
 
-**The release encrypts expanded coordinates (d ciphertexts), not kappa centroids.** It retains the local learning, clustering and native filter operations while avoiding mask reuse in the recovered compressed wrapper. It does not establish paper benchmark results, cryptographic security, network isolation or dropout recovery. Full-model encrypted runs are expensive and unbenchmarked. [REPRODUCIBILITY.md](REPRODUCIBILITY.md) separates paper settings, implemented behavior and remaining gaps.
+## Protocol
+
+The implementation uses decentralized, coordinate-labelled functional encryption on P-256. Clients cluster weights, expand their local vector, and encrypt each coordinate with a unique session/round/position label. Each client sends **d ciphertexts for d model coordinates**; the paper's compressed transport uses κ encrypted centroids. These are different communication and encryption costs. Client secrets stay in client objects; the aggregation object holds public parameters and functional shares. BatchNorm buffers are aggregated in plaintext.
+
+All selected clients must contribute to a round. This local simulator uses in-process message delivery; network authentication, process isolation and dropout recovery require a separate deployment layer. [Protocol details](REPRODUCIBILITY.md) specify fixed-point precision, public bounds and aggregation checks.
 
 ## Citation
 
@@ -91,4 +97,4 @@ Each named run saves JSON containing configuration, data-manifest hash, exact cl
 
 ## License and attribution
 
-See [LICENSE](LICENSE), [NOTICE](NOTICE), and [PROVENANCE.md](PROVENANCE.md) for the first-party and third-party terms and exact source commits. Imported code retains its original license notices; these may differ from the repository's root license. The recovered pyfilters wrapper declares Apache-2.0 in package metadata but lacks a standalone license grant; that provenance limitation remains recorded.
+See [LICENSE](LICENSE), [NOTICE](NOTICE), and [PROVENANCE.md](PROVENANCE.md) for the component licenses and source attribution. Third-party code retains its original notices. The pyfilters wrapper and native headers have separate license records in that guide.

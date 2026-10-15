@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "enccluster-research"
 version = "0.1.0"
-description = "EncCluster reproducible research implementation with audited protocol boundaries"
+description = "EncCluster: federated weight clustering with coordinate-labelled functional encryption"
 readme = "README.md"
 requires-python = ">=3.11,<3.14"
 license = {file = "LICENSE"}

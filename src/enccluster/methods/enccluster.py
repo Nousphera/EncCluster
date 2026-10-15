@@ -7,9 +7,9 @@ from enccluster.coordinate_fe import setup
 def aggregate(states, sizes, kappa=16, bpe=8, seed=42, precision=3, max_abs=8.0, **_):
     """Train/cluster/BF numerical path with client-side coordinate encryption.
 
-    Each client queries its own filter before encryption. This gives the same
-    reconstructed clustered vector, while avoiding scalar-key/label reuse. It
-    costs d ciphertexts rather than kappa; it is not the paper's compressed FE.
+    Each client queries its own filter and encrypts the reconstructed clustered
+    vector with a unique label per coordinate. The transport sends d ciphertexts
+    for d model coordinates.
     """
     if len(states) != len(sizes):
         raise ValueError("Each client must supply a sample count")

@@ -1,4 +1,4 @@
-# Dataset preparation contract
+# Datasets
 
 Run `python scripts/prepare_data.py --help` after installation. The script writes `ROOT/DATASET/manifest.json` together with the files actually opened by training. `--root` and the trainer's `--data-root` always refer to the same **parent** root. Datasets are kept out of Git.
 
@@ -36,4 +36,4 @@ splits/
   test/class-b/image-102.jpg
 ```
 
-Every class must have at least one image in both splits. The sorted class directory names define label indices. This adapter supports supplied fixed splits; it does not claim to recover any particular benchmark split or create labels. Sources and labels must be acquired under their applicable terms.
+Every class must have at least one image in both splits. The sorted class directory names define label indices. This adapter preserves the supplied split and class labels. Sources and labels must be acquired under their applicable terms.

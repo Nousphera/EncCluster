@@ -9,7 +9,7 @@
     {
       "path": "src/enccluster/__init__.py",
       "source": "release-maintenance",
-      "released_sha256": "413d52dc252c58ea46d93491988ce96fbf818f8a8751715f6f9a3dd42d75a4b8"
+      "released_sha256": "dc4cafc3fc96eca235f9f12bf63241f7db4bb8970de4749a4363bede02c4f5ad"
     },
     {
       "path": "src/enccluster/architectures/__init__.py",
@@ -68,7 +68,7 @@
     {
       "path": "src/enccluster/coordinate_fe.py",
       "source": "release-maintenance",
-      "released_sha256": "4fce31479785620a39fa8f4c4e045e57bc4eab9c71e47a070d1096b4290b738c"
+      "released_sha256": "34d3213e1faf835a45ebdf4f73f8fde8b28bcf1a5d87fce694d838e64ba1d3d4"
     },
     {
       "path": "src/enccluster/filters.py",
@@ -112,7 +112,7 @@
       "source_commit": "9a1b4e00503813a69ecbe84bea564a087cf33ca3",
       "source_path": "src/methods/enccluster.py",
       "source_sha256": "777d27e45dc3179d57353a0bc8fa2f03b95745c8c4766e566685585d4fe2bb53",
-      "released_sha256": "48b90789e1385b7e37a0167d17a11424ee2527a7b3329b994b3415f8605f21be",
+      "released_sha256": "31e1fa6249256e7a7a7a7aa3e0db42e27c58a159b6d1086c8defdd5a7c7a2535",
       "modified": true
     },
     {
@@ -139,7 +139,7 @@
       "source_commit": "9a1b4e00503813a69ecbe84bea564a087cf33ca3",
       "source_path": "src/train.py",
       "source_sha256": "79f6a5a1271724ffc5f60c5545b7695be36d967b3733f77ad9bc48efcf8c82fe",
-      "released_sha256": "87923bcf2ea02bd2a8a2d8e7518f205dfd233205393b0c51275a75a7f71da437",
+      "released_sha256": "f66465045275ecb300154fff11f2d976af46bcf6310bf451b93c75ef3c546aeb",
       "modified": true
     },
     {
