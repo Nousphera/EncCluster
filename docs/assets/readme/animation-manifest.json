@@ -1,0 +1,80 @@
+{
+  "source": "https://arxiv.org/pdf/2406.09152v1",
+  "walkthrough": "https://nousphera.github.io/projects/enccluster/",
+  "scene_order": [
+    "Cluster",
+    "Encode",
+    "Upload",
+    "Query map",
+    "Reconstruct",
+    "Aggregate"
+  ],
+  "seconds_per_scene": 5,
+  "frames_per_second": 10,
+  "artifacts": [
+    {
+      "file": "method-dark-mobile.gif",
+      "bytes": 1466808,
+      "sha256": "0cc2717e8277b2661cfa95555d52b088dc714cb77b5a61247197d07faf4b9054",
+      "width": 840,
+      "height": 1556,
+      "r_frame_rate": "10/1",
+      "nb_frames": "300",
+      "duration_seconds": 30,
+      "loop": "infinite"
+    },
+    {
+      "file": "method-dark.gif",
+      "bytes": 791853,
+      "sha256": "b17e686b50886df68da7edb9a3b6c96440f6d18a2a42c08db8bcb64eb9eb78ab",
+      "width": 960,
+      "height": 736,
+      "r_frame_rate": "10/1",
+      "nb_frames": "300",
+      "duration_seconds": 30,
+      "loop": "infinite"
+    },
+    {
+      "file": "method-dark.mp4",
+      "bytes": 336272,
+      "sha256": "06b8fba4324e4a14142e71c76c2dfe5b3dca7c5c5ed7870492e320b4ae64971c",
+      "width": 960,
+      "height": 736,
+      "r_frame_rate": "10/1",
+      "nb_frames": "300",
+      "duration_seconds": 30
+    },
+    {
+      "file": "method-light-mobile.gif",
+      "bytes": 1617191,
+      "sha256": "e3a40f1af7246c19ef71599ccdd7893fe060544f7b994d329f9acec0809e2386",
+      "width": 840,
+      "height": 1556,
+      "r_frame_rate": "10/1",
+      "nb_frames": "300",
+      "duration_seconds": 30,
+      "loop": "infinite"
+    },
+    {
+      "file": "method-light.gif",
+      "bytes": 846299,
+      "sha256": "64fb5d8f96f3e2852a644b559a9cd92c60eb4ca3aa819bb0f5e555f15867bba4",
+      "width": 960,
+      "height": 736,
+      "r_frame_rate": "10/1",
+      "nb_frames": "300",
+      "duration_seconds": 30,
+      "loop": "infinite"
+    },
+    {
+      "file": "method-light.mp4",
+      "bytes": 348153,
+      "sha256": "c31704f74f990d86314c8cdad79301fa187cdaf66dfcdac568a742cf562dc8b9",
+      "width": 960,
+      "height": 736,
+      "r_frame_rate": "10/1",
+      "nb_frames": "300",
+      "duration_seconds": 30
+    }
+  ]
+}

@@ -3,4 +3,9 @@ ablates against. All expose aggregate(...) returning a new state dict."""
 
 from . import fedavg, cluster, bfuse, enccluster
 
-METHODS = {"fedavg": fedavg, "cluster": cluster, "bfuse": bfuse, "enccluster": enccluster}
+METHODS = {
+    "fedavg": fedavg,
+    "cluster": cluster,
+    "bfuse": bfuse,
+    "enccluster": enccluster,
+}

@@ -1,15 +1,27 @@
-# Modified 2026-10-15: namespaced release integration; see THIRD_PARTY_LICENSES.
-from enccluster.clustering import weight_clustering, unflatten_state, aggregate_buffers
+"""Plaintext clustering plus Binary Fuse mapping ablation."""
+
+from enccluster.clustering import (
+    weight_clustering,
+    unflatten_state,
+    aggregate_buffers,
+    validate_states,
+)
 from enccluster.filters import encode_mapping, reconstruct_mapping
 
 
-def aggregate(states, sizes, kappa=16, bpe=16, **_):
-    total, expanded, keys, shapes = sum(sizes), [], None, None
-    for sd in states:
-        Z, P, keys, shapes = weight_clustering(sd, kappa=kappa)
-        P_hat = reconstruct_mapping(encode_mapping(P, bpe=bpe), len(P), kappa)
-        expanded.append(Z[P_hat])
-    agg = sum(v * (w / total) for v, w in zip(expanded, sizes))
-    out = unflatten_state(agg, keys, shapes)
-    out.update(aggregate_buffers(states, sizes))
-    return out
+def aggregate(states, sizes, kappa=128, bpe=8, seed=42, **_):
+    total = validate_states(states, sizes)
+    expanded = []
+    for state in states:
+        centroids, mapping, keys, shapes = weight_clustering(
+            state, kappa=kappa, seed=seed
+        )
+        reconstructed = reconstruct_mapping(
+            encode_mapping(mapping, bpe=bpe), len(mapping), len(centroids)
+        )
+        expanded.append(centroids[reconstructed])
+    result = unflatten_state(
+        sum(v * (n / total) for v, n in zip(expanded, sizes)), keys, shapes
+    )
+    result.update(aggregate_buffers(states, sizes))
+    return result

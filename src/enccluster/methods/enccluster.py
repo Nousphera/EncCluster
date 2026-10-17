@@ -1,30 +1,59 @@
-# Modified 2026-10-15: coordinate-labelled decentralized FE; see README.md.
-from enccluster.clustering import weight_clustering, unflatten_state, aggregate_buffers
-from enccluster.filters import encode_mapping, reconstruct_mapping
-from enccluster.coordinate_fe import setup
+"""Centroid encryption and filter reconstruction for local numerical runs."""
+
+import hashlib
+import json
+from enccluster.clustering import (
+    weight_clustering,
+    unflatten_state,
+    aggregate_buffers,
+    validate_states,
+)
+from enccluster.filters import (
+    encode_mapping,
+    reconstruct_mapping,
+    serialize_filter,
+    deserialize_filter,
+)
+from enccluster.centroid_fe import Config, Participant, Aggregator
 
 
-def aggregate(states, sizes, kappa=16, bpe=8, seed=42, precision=3, max_abs=8.0, **_):
-    """Train/cluster/BF numerical path with client-side coordinate encryption.
-
-    Each client queries its own filter and encrypts the reconstructed clustered
-    vector with a unique label per coordinate. The transport sends d ciphertexts
-    for d model coordinates.
-    """
-    if len(states) != len(sizes):
-        raise ValueError("Each client must supply a sample count")
-    clustered = [weight_clustering(sd,kappa=kappa,seed=seed) for sd in states]
+def aggregate(
+    states, sizes, kappa=128, bpe=8, seed=42, precision=3, max_abs=8.0, round_id=1, **_
+):
+    validate_states(states, sizes)
+    clustered = [weight_clustering(state, kappa=kappa, seed=seed) for state in states]
     keys, shapes = clustered[0][2:]
-    if any(c[2] != keys or c[3] != shapes for c in clustered):
-        raise ValueError("Clients must use identical state keys and shapes")
-    d = len(clustered[0][1])
-    clients, server = setup(sizes,dimension=d,precision=precision,max_abs=max_abs)
+    dimension = len(clustered[0][1])
+    layout = hashlib.sha256(
+        json.dumps([keys, shapes], separators=(",", ":")).encode()
+    ).hexdigest()
+    cfg = Config.create(
+        sizes,
+        dimension=dimension,
+        kappa=kappa,
+        precision=precision,
+        max_abs=max_abs,
+        round_id=round_id,
+        layout_digest=layout,
+    )
+    clients = [Participant(cfg, i) for i in range(len(states))]
+    peers = {i: client.public_key() for i, client in enumerate(clients)}
     messages = []
-    for client,(Z,P,_,_) in zip(clients,clustered):
-        bf = encode_mapping(P,bpe=bpe)
-        reconstructed = reconstruct_mapping(bf,d,kappa)
-        messages.append(client.encrypt(Z[reconstructed],round_id=1))
-    flat = server.aggregate(messages,round_id=1)
-    out = unflatten_state(flat,keys,shapes)
-    out.update(aggregate_buffers(states,sizes))
+    mappings = []
+    for client, (centroids, mapping, _, _) in zip(clients, clustered):
+        client.set_peers(peers)
+        wire = serialize_filter(encode_mapping(mapping, bpe), bpe)
+        recovered = reconstruct_mapping(
+            deserialize_filter(wire, dimension), dimension, len(centroids)
+        )
+        mappings.append(recovered)
+        messages.append(client.encrypt(centroids, recovered))
+    server = Aggregator(cfg, peers)
+    chunks = (
+        (request, [client.authorize(request) for client in clients])
+        for request in server.request_chunks(messages, mappings)
+    )
+    flat = server.aggregate_chunks(messages, chunks)
+    out = unflatten_state(flat, keys, shapes)
+    out.update(aggregate_buffers(states, sizes))
     return out

@@ -1,13 +1,23 @@
-# Modified 2026-10-15: namespaced release integration; see THIRD_PARTY_LICENSES.
-from enccluster.clustering import weight_clustering, unflatten_state, aggregate_buffers
+"""FedAvg with full local model weight clustering; plaintext ablation."""
+
+from enccluster.clustering import (
+    weight_clustering,
+    unflatten_state,
+    aggregate_buffers,
+    validate_states,
+)
 
 
-def aggregate(states, sizes, kappa=16, **_):
-    total, expanded, keys, shapes = sum(sizes), [], None, None
-    for sd in states:
-        Z, P, keys, shapes = weight_clustering(sd, kappa=kappa)
-        expanded.append(Z[P])
-    agg = sum(v * (w / total) for v, w in zip(expanded, sizes))
-    out = unflatten_state(agg, keys, shapes)
-    out.update(aggregate_buffers(states, sizes))
-    return out
+def aggregate(states, sizes, kappa=128, seed=42, **_):
+    total = validate_states(states, sizes)
+    expanded = []
+    for state in states:
+        centroids, mapping, keys, shapes = weight_clustering(
+            state, kappa=kappa, seed=seed
+        )
+        expanded.append(centroids[mapping])
+    result = unflatten_state(
+        sum(v * (n / total) for v, n in zip(expanded, sizes)), keys, shapes
+    )
+    result.update(aggregate_buffers(states, sizes))
+    return result
