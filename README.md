@@ -1,6 +1,6 @@
 <h1 align="center">EncCluster</h1>
 <p align="center"><strong>Scalable Functional Encryption in Federated Learning<br>through Weight Clustering and Probabilistic Filters</strong></p>
-<p align="center"><a href="https://vtsouval.github.io/"><strong>Vasileios Tsouvalas</strong></a> · Samaneh Mohammadi · Ali Balador · Tanir Ozcelebi · Francesco Flammini · Nirvana Meratnia</p>
+<p align="center"><a href="https://vtsouval.github.io/"><strong>Vasileios Tsouvalas</strong></a> · <a href="https://samanemohammadi.github.io/"><strong>Samaneh Mohammadi</strong></a> · Ali Balador · Tanir Ozcelebi · Francesco Flammini · Nirvana Meratnia</p>
 
 <p align="center">
   <a href="https://doi.org/10.1016/j.pmcj.2025.102021" title="Read the paper"><img src="docs/assets/icons/resource-paper.svg" width="48" height="48" alt="Paper"></a>
